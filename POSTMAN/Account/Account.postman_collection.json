@@ -119,6 +119,26 @@
 				"description": "create"
 			},
 			"response": []
+		},
+		{
+			"name": "http://localhost:5000/generation/testGet",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/generation/testGet",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"generation",
+						"testGet"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

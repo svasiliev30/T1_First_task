@@ -24,8 +24,6 @@ public class Transaction {
     @Id
     @Column(nullable = false)
     Long id;
-
     Double amountTransaction;
-
     LocalDateTime timeTransaction;
 }

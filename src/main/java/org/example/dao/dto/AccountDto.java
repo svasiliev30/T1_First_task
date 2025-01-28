@@ -2,10 +2,7 @@ package org.example.dao.dto;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.example.dao.enums.AccountEnumCheck;
 import org.springframework.stereotype.Component;

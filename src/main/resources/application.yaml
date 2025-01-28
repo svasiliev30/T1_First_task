@@ -1,0 +1,42 @@
+server.port: 5000
+
+spring:
+  scan-path: org.example
+  database:
+    driverClassName: org.postgresql.Driver
+  datasource:
+    url: jdbc:postgresql://localhost:5432/T1
+    username: postgres
+    password: "12345"
+  kafka:
+    bootstrap:
+      server: ${KAFKA_SERVER:localhost:9092}
+    consumer:
+      group-id: T1-test
+      max.poll.records: 1
+      session-timeout: 45000
+      heartbeat.interval: 10000
+    producer:
+      acks: all
+      retries: 3
+      enable: true
+    topic:
+      accounts: "t1_demo_Accounts"
+      metrics: "t1_demo_Metrics"
+      transaction: "t1_demo_Transactions"
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      naming_strategy: org.hibernate.cfg.ImprovedNamingStrategy
+    properties:
+      hibernate:
+        id:
+          new_generator_mappings: true
+        jdbc:
+          time_zone: UTC
+
+
+
+

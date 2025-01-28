@@ -21,7 +21,7 @@ public class ExceptionController {
     @Transactional
     @ExceptionHandler(Exception.class)
     public ResponseEntity<DataSourceErrorLog> handleException(Exception excep) {
-        repository.save(dataSourceErrorLog);
+//        repository.save(dataSourceErrorLog);
         return new ResponseEntity<>(dataSourceErrorLog, HttpStatus.BAD_REQUEST);
     }
 }

@@ -54,7 +54,7 @@ public class AccountServiceImpl implements AccountService {
             throw new Exception("Erorr");
         }
         accountRepository.deleteById(id);
-        log.info("We delete a client - " + account.toString());
+        log.info("We delete a client - " + id);
         return id;
     }
 
