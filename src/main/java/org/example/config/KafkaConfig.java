@@ -33,6 +33,10 @@ public class KafkaConfig {
     @Value("${spring.kafka.consumer.heartbeat.interval}")
     protected String heartbeatInterval;
 
+    @Value("${spring.kafka.consumer.autoOffsetRestConfig:latest}")
+    protected String autoOffsetRestConfig;
 
+    @Value("${spring.kafka.consumer.enableAutoCommitConfig:false}")
+    protected Boolean enableAutoCommitConfig;
 
 }

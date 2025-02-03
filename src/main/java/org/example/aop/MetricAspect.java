@@ -6,7 +6,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.example.dao.entity.Metric;
-import org.example.kafka.KafkaProducerMetricError;
+import org.example.kafka.produser.KafkaProducerMetricError;
 import org.example.service.metric.TargetMetric;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

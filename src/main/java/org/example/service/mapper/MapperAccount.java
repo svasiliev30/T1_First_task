@@ -3,40 +3,37 @@ package org.example.service.mapper;
 import lombok.extern.slf4j.Slf4j;
 import org.example.dao.dto.AccountDto;
 import org.example.dao.entity.Account;
-import org.example.dao.enums.AccountEnumCheck;
-import org.example.dao.repository.AccountRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.example.dao.enums.AccountCheckEnum;
+import org.example.dao.enums.AccountStatusEnum;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Slf4j
-public class MapperAccount implements Mapper<AccountDto> {
+public class MapperAccount {
 
-    @Autowired
-    AccountRepository accountRepository;
-    @Autowired
-    Account account;
+
 
     @Transactional
-    @Override
-    public boolean mapping(AccountDto accountDto) throws Exception {
+    public Account mapping(AccountDto accountDto) throws Exception {
+        Account account = new Account();
         try {
-            account.setId(accountDto.getId());
+            account.setAccountId(accountDto.getId());
             account.setBalance(accountDto.getBalance());
+//            account.setClientId(accountDto.getClientId());
             try {
-                account.setCheckAccount(AccountEnumCheck.fromValue(accountDto.getCheckAccount()));
+                account.setCheckAccount(AccountCheckEnum.fromValue(accountDto.getCheckAccount()));
+                account.setStatusEnum(AccountStatusEnum.fromValue(accountDto.getStatusAccount()));
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
-            accountRepository.save(account);
-
 
         } catch (Exception exception) {
             log.error("Ошибка Topic: {}, Key: {}");
             throw new Exception("error kafka");
         }
 
-        return true;
+        return account;
     }
+
 }

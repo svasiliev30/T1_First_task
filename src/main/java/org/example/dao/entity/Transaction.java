@@ -1,29 +1,37 @@
 package org.example.dao.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 import lombok.experimental.FieldDefaults;
+import org.example.dao.enums.TransactionStatusEnum;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Component
 @Entity
-@Table(name = "transaction_account")
+@Table(name = "account_transaction")
 public class Transaction {
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
-    @Column(nullable = false)
-    Long id;
+    private Long id;
+    @Column(nullable = false, unique = true)
+    Long transactionId;
     Double amountTransaction;
     LocalDateTime timeTransaction;
+    TransactionStatusEnum transactionStatusEnum;
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false)
+    LocalDateTime timestamp;
+
+    @ManyToOne
+    @JoinColumn(name = "account_id")
+    Account account;
+
 }

@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.example.dao.dto.AccountDto;
+import org.example.dao.entity.Account;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.EnableKafka;
@@ -22,7 +23,7 @@ import java.util.Map;
 public class KafkaConfConsumerAccount extends KafkaConfig {
 
     @Bean
-    public ConsumerFactory<String, AccountDto> consumerFactoryAccount() {
+    public ConsumerFactory<String, Account> consumerFactoryAccount() {
         Map<String, Object> props = new HashMap<>();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,
                 servers);
@@ -33,13 +34,13 @@ public class KafkaConfConsumerAccount extends KafkaConfig {
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,
                 JsonDeserializer.class);
         props.put(JsonDeserializer.VALUE_DEFAULT_TYPE,
-                "org.example.dao.dto.AccountDto");
+                "org.example.dao.entity.Account");
         props.put(JsonDeserializer.TRUSTED_PACKAGES,
-                "org.example.dao.dto");
+                "org.example.dao.entity");
         props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG,
-                "earliest");
+                autoOffsetRestConfig);
         props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG,
-                Boolean.TRUE);
+                enableAutoCommitConfig);
         props.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG,
                 sessionTimeout);
         props.put(ConsumerConfig.MAX_PARTITION_FETCH_BYTES_CONFIG,
@@ -53,14 +54,14 @@ public class KafkaConfConsumerAccount extends KafkaConfig {
     }
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, AccountDto>
+    public ConcurrentKafkaListenerContainerFactory<String, Account>
     kafkaListenerContainerFactoryAccount() {
 
-        ConcurrentKafkaListenerContainerFactory<String, AccountDto> factory =
+        ConcurrentKafkaListenerContainerFactory<String, Account> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactoryAccount());
         //сам подтверждаешь получение
-//        factory.getContainerProperties().setAckMode(ContainerProperties.AckMode.MANUAL_IMMEDIATE);
+        factory.getContainerProperties().setAckMode(ContainerProperties.AckMode.MANUAL_IMMEDIATE);
         // можно обрабатывать коллекции
         factory.setBatchListener(true);
         return factory;

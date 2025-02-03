@@ -3,7 +3,6 @@ package org.example.config;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
-import org.example.dao.dto.AccountDto;
 import org.example.dao.entity.Transaction;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,9 +36,9 @@ public class KafkaConfConsumerTransaction extends KafkaConfig {
         props.put(JsonDeserializer.TRUSTED_PACKAGES,
                 "org.example.dao.entity");
         props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG,
-                "earliest");
+                autoOffsetRestConfig);
         props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG,
-                Boolean.FALSE);
+                enableAutoCommitConfig);
         props.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG,
                 sessionTimeout);
         props.put(ConsumerConfig.MAX_PARTITION_FETCH_BYTES_CONFIG,
@@ -60,7 +59,7 @@ public class KafkaConfConsumerTransaction extends KafkaConfig {
                 new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactoryTransaction());
         //сам подтверждаешь получение
-//        factory.getContainerProperties().setAckMode(ContainerProperties.AckMode.MANUAL_IMMEDIATE);
+        factory.getContainerProperties().setAckMode(ContainerProperties.AckMode.MANUAL_IMMEDIATE);
         // можно обрабатывать коллекции
         factory.setBatchListener(true);
         return factory;

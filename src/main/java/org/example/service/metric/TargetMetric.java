@@ -8,5 +8,5 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface TargetMetric {
-    long timeLimitMillis() default 1000;
+    long timeLimitMillis() default 10000000;
 }

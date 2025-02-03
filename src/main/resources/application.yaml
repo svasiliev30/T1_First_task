@@ -24,6 +24,8 @@ spring:
       accounts: "t1_demo_Accounts"
       metrics: "t1_demo_Metrics"
       transaction: "t1_demo_Transactions"
+      transactionAccept: "t1_demo_Transactions_Accept"
+      transactionResult: "t1_demo_Transactions_Result"
   jpa:
     database: POSTGRESQL
     show-sql: true

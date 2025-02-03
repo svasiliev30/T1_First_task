@@ -3,7 +3,7 @@ package org.example.service;
 import lombok.extern.slf4j.Slf4j;
 import org.example.dao.dto.AccountDto;
 import org.example.dao.entity.Account;
-import org.example.dao.enums.AccountEnumCheck;
+import org.example.dao.enums.AccountCheckEnum;
 import org.example.dao.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,9 +38,9 @@ public class AccountServiceImpl implements AccountService {
         if (!accountRepository.findById(accountDto.getId()).isEmpty()) {
             throw new Exception("Erorr");
         }
-        account.setId(accountDto.getId());
-        account.setBalance(accountDto.getBalance());
-        account.setCheckAccount(AccountEnumCheck.fromValue(accountDto.getCheckAccount()));
+//        account.setId(accountDto.getId());
+//        account.setBalance(accountDto.getBalance());
+//        account.setCheckAccount(AccountCheckEnum.fromValue(accountDto.getCheckAccount()));
         accountRepository.save(account);
         log.info("We can save account - " + accountDto.getId());
         return account;
@@ -50,11 +50,11 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Long deleteAccount(Long id) throws Exception {
         log.info("We want to find the user with the id - " + id);
-        if (accountRepository.findById(id).isEmpty()) {
-            throw new Exception("Erorr");
-        }
-        accountRepository.deleteById(id);
-        log.info("We delete a client - " + id);
+//        if (accountRepository.findById(id).isEmpty()) {
+//            throw new Exception("Erorr");
+//        }
+//        accountRepository.deleteById(id);
+//        log.info("We delete a client - " + id);
         return id;
     }
 
@@ -65,10 +65,10 @@ public class AccountServiceImpl implements AccountService {
         if (accountRepository.findById(accountDto.getId()).isEmpty()) {
             throw new Exception("Erorr");
         }
-        account.setId(accountDto.getId());
-        account.setBalance(accountDto.getBalance());
-        account.setCheckAccount(AccountEnumCheck.fromValue(accountDto.getCheckAccount()));
-        accountRepository.save(account);
+//        account.setId(accountDto.getId());
+//        account.setBalance(accountDto.getBalance());
+//        account.setCheckAccount(AccountCheckEnum.fromValue(accountDto.getCheckAccount()));
+//        accountRepository.save(account);
         log.info("We can save account - " + accountDto.getId());
         return account;
     }

@@ -33,14 +33,14 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public Transaction createTransaction(Transaction newTransaction) throws Exception {
         log.info("Сreating a transaction - " + newTransaction.getId());
-        if (!transactionRepository.findById(newTransaction.getId()).isEmpty()) {
-            throw new Exception("Erorr");
-        }
-        transaction.setId(newTransaction.getId());
-        transaction.setAmountTransaction(newTransaction.getAmountTransaction());
-        transaction.setTimeTransaction(newTransaction.getTimeTransaction());
-        transactionRepository.save(transaction);
-        log.info("We can save transaction - " + transaction.getId());
+//        if (!transactionRepository.findById(newTransaction.getId()).isEmpty()) {
+//            throw new Exception("Erorr");
+//        }
+//        transaction.setId(newTransaction.getId());
+//        transaction.setAmountTransaction(newTransaction.getAmountTransaction());
+//        transaction.setTimeTransaction(newTransaction.getTimeTransaction());
+//        transactionRepository.save(transaction);
+//        log.info("We can save transaction - " + transaction.getId());
         return transaction;
     }
 

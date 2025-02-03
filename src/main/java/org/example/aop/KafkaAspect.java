@@ -5,9 +5,8 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.example.dao.entity.DataSourceErrorLog;
 import org.example.dao.repository.DataSourceErrorLogRepository;
-import org.example.kafka.KafkaProducerMetricError;
+import org.example.kafka.produser.KafkaProducerMetricError;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
