@@ -1,0 +1,10 @@
+{
+    "id": 1,
+    "accountId": 11,
+    "balance": 0,
+    "checkAccount": "CREDIT_ACCOUNT",
+    "statusEnum": "OPEN",
+     "client": {
+    "clientId": 1
+  }
+}

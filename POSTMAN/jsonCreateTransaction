@@ -1,0 +1,32 @@
+{
+    "id": 1,
+    "transactionId": 1121,
+    "amountTransaction": 100,
+    "timeTransaction": "2025-01-17T22:14:43.303671",
+    "transactionStatusEnum": "ACCEPTED",
+     "account": {
+    "accountId": 11
+  }
+}
+
+{
+    "id": 1,
+    "transactionId": 1122,
+    "amountTransaction": 100,
+    "timeTransaction": "2025-01-17T22:14:43.303671",
+    "transactionStatusEnum": "ACCEPTED",
+     "account": {
+    "accountId": 11
+  }
+}
+
+{
+    "id": 1,
+    "transactionId": 1123,
+    "amountTransaction": -10000,
+    "timeTransaction": "2025-01-17T22:14:43.303671",
+    "transactionStatusEnum": "ACCEPTED",
+     "account": {
+    "accountId": 11
+  }
+}
