@@ -1,5 +1,6 @@
 package org.example.service.check;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.dao.dto.TransactionDto;
 import org.example.dao.entity.Account;
@@ -13,14 +14,13 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Slf4j
+@RequiredArgsConstructor
 @Service("CheckTransactionResultImpl")
 public class CheckTransactionResultImpl implements CheckStatus<TransactionDto> {
 
-    @Autowired
-    AccountRepository accountRepository;
+    private final AccountRepository accountRepository;
 
-    @Autowired
-    TransactionRepository transactionRepository;
+    private final TransactionRepository transactionRepository;
 
     @Override
     public void getCheck(TransactionDto transactionDto) throws Exception {
@@ -44,9 +44,10 @@ public class CheckTransactionResultImpl implements CheckStatus<TransactionDto> {
     }
 
     public void statusAccepted(TransactionDto transactionDto) {
-        Transaction transaction = transactionRepository.findByTransactionId(transactionDto.getTransactionId());
+        Transaction transaction = transactionRepository.findByTransactionId(transactionDto.getTransactionId())
+                .orElseThrow();
         Optional<Account> accountOpt = accountRepository.findByAccountId(transaction.getAccount().getAccountId());
-        Account account = accountOpt.get();
+        Account account = accountOpt.orElseThrow();;
 
         double balance = account.getBalance() + transaction.getAmountTransaction();
         log.info("Transaction is accepted");
@@ -58,9 +59,10 @@ public class CheckTransactionResultImpl implements CheckStatus<TransactionDto> {
     }
 
     public void statusRejected(TransactionDto transactionDto) {
-        Transaction transaction = transactionRepository.findByTransactionId(transactionDto.getTransactionId());
+        Transaction transaction = transactionRepository.findByTransactionId(transactionDto.getTransactionId())
+                .orElseThrow();
         Optional<Account> accountOpt = accountRepository.findByAccountId(transaction.getAccount().getAccountId());
-        Account account = accountOpt.get();
+        Account account = accountOpt.orElseThrow();;
 
         log.info("Transaction is rejected");
         double balance = account.getBalance() + transaction.getAmountTransaction();
@@ -72,9 +74,10 @@ public class CheckTransactionResultImpl implements CheckStatus<TransactionDto> {
     }
 
     public void statusBlocked(TransactionDto transactionDto) {
-        Transaction transaction = transactionRepository.findByTransactionId(transactionDto.getTransactionId());
+        Transaction transaction = transactionRepository.findByTransactionId(transactionDto.getTransactionId())
+                .orElseThrow();
         Optional<Account> accountOpt = accountRepository.findByAccountId(transaction.getAccount().getAccountId());
-        Account account = accountOpt.get();
+        Account account = accountOpt.orElseThrow();;
 
         log.info("Transaction is blocked");
         double balance = account.getBalance() + transaction.getAmountTransaction();

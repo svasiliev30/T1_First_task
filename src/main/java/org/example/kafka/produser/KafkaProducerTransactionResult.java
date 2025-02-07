@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.dao.dto.TransactionDto;
 import org.example.dao.entity.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -16,9 +17,8 @@ import java.util.UUID;
 @Component
 public class KafkaProducerTransactionResult<T extends Object> {
 
-    @Qualifier("kafkaClientTemplate")
-    public final KafkaTemplate kafkaTemplate;
 
+    private final KafkaTemplate kafkaTemplate;
 
     @Value("${spring.kafka.topic.transactionResult}")
     public String topicName;

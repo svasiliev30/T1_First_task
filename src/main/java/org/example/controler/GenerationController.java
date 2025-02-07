@@ -11,38 +11,30 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RequiredArgsConstructor
 @RestController
 @RequestMapping(value = "/generation")
+@RequiredArgsConstructor
 public class GenerationController {
 
-    @Autowired
-    GenerationServiceAccountImpl generationServiceAc;
+    private final GenerationServiceAccountImpl generationServiceAc;
 
-    @Autowired
-    GenerationServiceTransactionImpl generationServiceTransaction;
+    private final GenerationServiceTransactionImpl generationServiceTransaction;
 
-    @Autowired
-    GenerationServiceClientsImpl generationServiceClients;
+    private final GenerationServiceClientsImpl generationServiceClients;
+
 
     @GetMapping("/accountGeneration")
     public ResponseEntity<Object> createAccount() throws Exception {
-
-        boolean result = generationServiceAc.generation();
-        return new ResponseEntity<>(result, HttpStatus.OK) ;
+        return new ResponseEntity<>(generationServiceAc.generation(), HttpStatus.OK) ;
     }
 
     @GetMapping("/transactionGeneration")
     public ResponseEntity<Object> createTransaction() throws Exception {
-
-        boolean result = generationServiceTransaction.generation();
-        return new ResponseEntity<>(result, HttpStatus.OK) ;
+        return new ResponseEntity<>(generationServiceTransaction.generation(), HttpStatus.OK) ;
     }
 
     @GetMapping("/generationServiceClients")
     public ResponseEntity<Object> createClient() throws Exception {
-
-        boolean result = generationServiceClients.generation();
-        return new ResponseEntity<>(result, HttpStatus.OK) ;
+        return new ResponseEntity<>(generationServiceClients.generation(), HttpStatus.OK) ;
     }
 }

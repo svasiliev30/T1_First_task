@@ -1,5 +1,6 @@
 package org.example.aop;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -17,15 +18,13 @@ import java.util.concurrent.atomic.AtomicLong;
 
 @Slf4j
 @Aspect
-@Component
+@RequiredArgsConstructor
 public class MetricAspect {
 
     private static final AtomicLong START_TIME = new AtomicLong();
 
-    @Autowired
-    KafkaProducerMetricError kafkaProducerMetricError;
+    private final KafkaProducerMetricError kafkaProducerMetricError;
 
-    @Autowired
     Metric metric;
 
     @Pointcut("@annotation(targetMetric)")

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 @ToString
 @Getter
 @Setter
-@Component
 public class Metric {
 
     String nameMethod;

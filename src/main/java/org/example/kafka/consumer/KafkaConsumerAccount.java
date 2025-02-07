@@ -28,11 +28,9 @@ import java.util.Optional;
 @Component
 public class KafkaConsumerAccount {
 
-    @Autowired
-    ClientRepository clientRepository;
+    private final ClientRepository clientRepository;
 
-    @Autowired
-    AccountRepository accountRepository;
+    private final AccountRepository accountRepository;
 
     @TargetMetric
     @KafkaListener(
@@ -48,7 +46,7 @@ public class KafkaConsumerAccount {
             log.info("topic - {}, key - {},", topic, key);
 
             Optional<Client> clientOpt = clientRepository.findById(account.getClient().getClientId());
-            Client client = clientOpt.get();
+            Client client = clientOpt.orElseThrow();
             account.setClient(client);
             accountRepository.save(account);
 

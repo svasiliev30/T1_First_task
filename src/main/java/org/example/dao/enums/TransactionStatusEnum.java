@@ -1,4 +1,5 @@
 package org.example.dao.enums;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,7 +24,7 @@ public enum TransactionStatusEnum {
 
         for (TransactionStatusEnum status : TransactionStatusEnum.values()) {
             if (status.value.equals(value)) {
-                log.info("Status is - {}",status);
+                log.info("Status is - {}", status);
                 return status;
             }
         }

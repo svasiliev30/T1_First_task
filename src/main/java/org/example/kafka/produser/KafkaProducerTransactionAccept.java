@@ -6,6 +6,7 @@ import org.example.dao.dto.AccountDto;
 import org.example.dao.dto.ClientDto;
 import org.example.dao.entity.Account;
 import org.example.dao.entity.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -18,9 +19,7 @@ import java.util.UUID;
 @Component
 public class KafkaProducerTransactionAccept<T extends Object> {
 
-    @Qualifier("kafkaClientTemplate")
-    public final KafkaTemplate kafkaTemplate;
-
+    private final KafkaTemplate kafkaTemplate;
 
     @Value("${spring.kafka.topic.transactionAccept}")
     public String topicName;

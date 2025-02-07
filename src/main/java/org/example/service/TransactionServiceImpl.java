@@ -1,5 +1,6 @@
 package org.example.service;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.dao.entity.Transaction;
 import org.example.dao.repository.TransactionRepository;
@@ -8,14 +9,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
+@RequiredArgsConstructor
 @Service("TransactionServiceImpl")
 public class TransactionServiceImpl implements TransactionService {
 
-    @Autowired
-    TransactionRepository transactionRepository;
+    private final TransactionRepository transactionRepository;
 
-    @Autowired
-    Transaction transaction;
+    private Transaction transaction;
 
     @Transactional
     @Override

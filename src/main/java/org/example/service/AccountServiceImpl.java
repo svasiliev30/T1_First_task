@@ -1,5 +1,6 @@
 package org.example.service;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.dao.dto.AccountDto;
 import org.example.dao.entity.Account;
@@ -10,13 +11,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
+@RequiredArgsConstructor
 @Service("AccountServiceImpl")
 public class AccountServiceImpl implements AccountService {
 
-    @Autowired
-    AccountRepository accountRepository;
-    @Autowired
-    Account account;
+    private final AccountRepository accountRepository;
+    private  Account account;
 
     @Transactional
     @Override
@@ -30,7 +30,6 @@ public class AccountServiceImpl implements AccountService {
         return account;
     }
 
-    //    @SneakyThrows
     @Transactional
     @Override
     public Account createAccount(AccountDto accountDto) throws Exception {
@@ -38,9 +37,9 @@ public class AccountServiceImpl implements AccountService {
         if (!accountRepository.findById(accountDto.getId()).isEmpty()) {
             throw new Exception("Erorr");
         }
-//        account.setId(accountDto.getId());
-//        account.setBalance(accountDto.getBalance());
-//        account.setCheckAccount(AccountCheckEnum.fromValue(accountDto.getCheckAccount()));
+        account.setId(accountDto.getId());
+        account.setBalance(accountDto.getBalance());
+        account.setCheckAccount(AccountCheckEnum.fromValue(accountDto.getCheckAccount()));
         accountRepository.save(account);
         log.info("We can save account - " + accountDto.getId());
         return account;
@@ -50,11 +49,11 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Long deleteAccount(Long id) throws Exception {
         log.info("We want to find the user with the id - " + id);
-//        if (accountRepository.findById(id).isEmpty()) {
-//            throw new Exception("Erorr");
-//        }
-//        accountRepository.deleteById(id);
-//        log.info("We delete a client - " + id);
+        if (accountRepository.findById(id).isEmpty()) {
+            throw new Exception("Erorr");
+        }
+        accountRepository.deleteById(id);
+        log.info("We delete a client - " + id);
         return id;
     }
 
@@ -65,10 +64,10 @@ public class AccountServiceImpl implements AccountService {
         if (accountRepository.findById(accountDto.getId()).isEmpty()) {
             throw new Exception("Erorr");
         }
-//        account.setId(accountDto.getId());
-//        account.setBalance(accountDto.getBalance());
-//        account.setCheckAccount(AccountCheckEnum.fromValue(accountDto.getCheckAccount()));
-//        accountRepository.save(account);
+        account.setId(accountDto.getId());
+        account.setBalance(accountDto.getBalance());
+        account.setCheckAccount(AccountCheckEnum.fromValue(accountDto.getCheckAccount()));
+        accountRepository.save(account);
         log.info("We can save account - " + accountDto.getId());
         return account;
     }

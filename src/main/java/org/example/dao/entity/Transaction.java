@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Component
 @Entity
 @Table(name = "account_transaction")
 public class Transaction {
@@ -31,7 +30,7 @@ public class Transaction {
     LocalDateTime timestamp;
 
     @ManyToOne
-    @JoinColumn(name = "account_id")
+    @JoinColumn(name = "account_id",referencedColumnName = "account_id",nullable = false)
     Account account;
 
 }

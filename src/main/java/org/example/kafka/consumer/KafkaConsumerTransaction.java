@@ -12,7 +12,6 @@ import org.example.kafka.produser.KafkaProducerTransactionAccept;
 import org.example.service.check.CheckStatusAccountImpl;
 import org.example.service.mapper.MapperClient;
 import org.example.service.metric.TargetMetric;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.kafka.support.KafkaHeaders;
@@ -27,13 +26,10 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Component
 public class KafkaConsumerTransaction {
-    @Autowired
-    AccountRepository accountRepository;
-    @Autowired
-    TransactionRepository transactionRepository;
+    private final AccountRepository accountRepository;
+    private final TransactionRepository transactionRepository;
 
-    @Autowired
-    KafkaProducerTransactionAccept kafkaProduser;
+    private final KafkaProducerTransactionAccept kafkaProduser;
 
 
     @TargetMetric
@@ -50,9 +46,9 @@ public class KafkaConsumerTransaction {
         log.info("topic - {}, key - {},", topic, key);
         try {
             Optional<Account> optionalAccount = accountRepository.findByAccountId(transaction.getAccount().getAccountId());
-            Account account = optionalAccount.get();
+            Account account = optionalAccount.orElseThrow();
 
-            if (new CheckStatusAccountImpl().getCheck(account)){
+            if (new CheckStatusAccountImpl().getCheck(account)) {
                 transaction.setTransactionStatusEnum(TransactionStatusEnum.REQUESTED);
                 transaction.setAccount(account);
                 transactionRepository.save(transaction);

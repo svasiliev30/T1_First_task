@@ -17,7 +17,6 @@ import java.util.Set;
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Component
 @Entity
 @Table(name = "сlients_account")
 public class Account {

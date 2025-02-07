@@ -26,12 +26,16 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @Slf4j
-@RequiredArgsConstructor
 @Component
 public class KafkaConsumerTransactionResult {
+
+
+    private final CheckStatus checkStatus;
+
     @Autowired
-    @Qualifier("CheckTransactionResultImpl")
-    CheckStatus checkStatus;
+    public KafkaConsumerTransactionResult(@Qualifier("CheckTransactionResultImpl")CheckStatus checkStatus) {
+        this.checkStatus = checkStatus;
+    }
 
     @TargetMetric
     @Transactional

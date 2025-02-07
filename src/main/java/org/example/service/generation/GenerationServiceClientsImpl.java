@@ -1,5 +1,6 @@
 package org.example.service.generation;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.dao.entity.Account;
 import org.example.dao.entity.Client;
@@ -14,9 +15,9 @@ import java.util.Random;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class GenerationServiceClientsImpl implements GenerationService{
 
-    @Autowired
     ClientRepository clientRepository;
 
 
@@ -38,7 +39,7 @@ public class GenerationServiceClientsImpl implements GenerationService{
 
             log.info("Generate client - {} {}. Number account - {}", client.getFirstName(),
                     client.getLastName(),
-                    client.getAccounts().stream().findFirst().get().getAccountId());
+                    client.getAccounts().stream().findFirst().orElseThrow().getAccountId());
             clientRepository.save(client);
 
         }
@@ -46,7 +47,7 @@ public class GenerationServiceClientsImpl implements GenerationService{
         return true;
     }
 
-    private static Account getAccount(long i, Account account) {
+    private Account getAccount(long i, Account account) {
         account.setBalance(0.);
         account.setCheckAccount(AccountCheckEnum.DEBIT_ACCOUNT);
         account.setAccountId(i * 5);

@@ -31,12 +31,4 @@ public class DataSourceErrorLog {
     String methodSignature;
 
 
-    public void allNull(){
-        id = null;
-        exceptionStackTraceText = null;
-        message = null;
-        methodSignature = null;
-
-    }
-
 }

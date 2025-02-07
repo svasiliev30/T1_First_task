@@ -15,9 +15,7 @@ import java.util.UUID;
 @Component
 public class KafkaProducerTransaction<T extends Object> {
 
-    @Qualifier("kafkaClientTemplate")
-    public final KafkaTemplate kafkaTemplate;
-
+    private final KafkaTemplate kafkaTemplate;
 
     @Value("${spring.kafka.topic.transaction}")
     public String topicName;

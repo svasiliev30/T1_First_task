@@ -1,5 +1,8 @@
 package org.example.aop;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
@@ -13,14 +16,11 @@ import java.util.Arrays;
 
 @Slf4j
 @Aspect
-@Component
+@RequiredArgsConstructor
 public class KafkaAspect {
+    private DataSourceErrorLog dataSourceErrorLog;
 
-    @Autowired
-    DataSourceErrorLog dataSourceErrorLog;
-
-    @Autowired
-    DataSourceErrorLogRepository repository;
+    private final DataSourceErrorLogRepository repository;
 
     @Autowired
     KafkaProducerMetricError kafkaProducerMetricError;
@@ -52,7 +52,7 @@ public class KafkaAspect {
     @AfterThrowing(value = "clientAll()", throwing = "excep")
     public void throwingKafkaMethod(JoinPoint joinPoint, Exception excep) {
         log.error("-------------Error----------" + joinPoint.getSignature().getName());
-        dataSourceErrorLog.allNull();
+        dataSourceErrorLog = new DataSourceErrorLog();
         dataSourceErrorLog.setExceptionStackTraceText(Arrays
                 .stream(excep.getStackTrace())
                 .findFirst()

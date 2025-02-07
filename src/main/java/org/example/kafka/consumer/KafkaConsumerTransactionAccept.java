@@ -16,13 +16,16 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
-@RequiredArgsConstructor
 @Component
 public class KafkaConsumerTransactionAccept {
 
+
+    private final CheckStatus checkStatus;
+
     @Autowired
-    @Qualifier("CheckTransactionAcceptImpl")
-    CheckStatus checkStatus;
+    public KafkaConsumerTransactionAccept(@Qualifier("CheckTransactionAcceptImpl")CheckStatus checkStatus) {
+        this.checkStatus = checkStatus;
+    }
 
     @TargetMetric
     @Transactional

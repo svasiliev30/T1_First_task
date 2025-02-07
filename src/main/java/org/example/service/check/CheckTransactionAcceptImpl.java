@@ -13,12 +13,17 @@ import org.springframework.stereotype.Service;
 @Service("CheckTransactionAcceptImpl")
 public class CheckTransactionAcceptImpl implements CheckStatus<ClientDto> {
 
-    @Autowired
-    KafkaProducerTransactionResult kafkaProducer;
+    private final KafkaProducerTransactionResult kafkaProducer;
+
+
+
+    private final Check check;
 
     @Autowired
-    @Qualifier("CheckTimeImpl")
-    Check check;
+    public CheckTransactionAcceptImpl(KafkaProducerTransactionResult kafkaProducer,@Qualifier("CheckTimeImpl") Check check) {
+        this.kafkaProducer = kafkaProducer;
+        this.check = check;
+    }
 
     @Override
     public void getCheck(ClientDto clientDto) throws Exception {
